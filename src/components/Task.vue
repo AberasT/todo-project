@@ -1,5 +1,7 @@
 <template>
-
+    <div class="task-container">
+        <p>Task</p>
+    </div>
 
 
 </template>
@@ -11,11 +13,13 @@ export default {
   name: 'Task',
   data() {
     return {
-      task: ' '
+      task: ''
     }
-  },
-  components: {
-    
   }
 }
 </script>
+
+<style>
+
+
+</style>

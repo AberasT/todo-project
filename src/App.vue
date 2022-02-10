@@ -1,27 +1,24 @@
 <template>
   <h1>{{title}}</h1>
-  <ul>
-    <li v-for="(task,index) in tasks" :key="index">{{task}}</li>
-  </ul>
-  <input type="text">
-  <button @click="addTask">Add</button>
+  <task-display></task-display>
+
 
 </template>
 
 <script>
 import Task from "./components/Task";
+import TaskDisplay from "./components/TaskDisplay";
 
 export default {
-  name: 'App',
-  data() {
-    return {
-      title: 'To-Do List',
-      tasks: ['1','2','3']
+    name: 'App',
+    data() {
+      return {
+        title: 'To-Do List'
+      }
+    },
+    components: {
+      TaskDisplay
     }
-  },
-  components: {
-    Task
-  }
 }
 </script>
 
