@@ -1,9 +1,11 @@
 <template>
-    <form @submit.prevent="onSubmit">
-        <label for="taskText">Add a new to-do</label>
-        <textarea id="taskText" v-model="taskText"></textarea>
-        <input class="button" type="submit" value="Add">  
-    </form>
+    <div>
+        <form @submit.prevent="onSubmit">
+            <textarea id="taskText" v-model="taskText"></textarea>
+            <input class="button" type="submit" value="Add To-Do">  
+        </form>
+    </div>
+    
 </template>
 
 <script>
@@ -27,5 +29,19 @@ export default {
 </script>
 
 <style>
-
+    textarea {
+        width: 100%;
+        border: solid 2px black;
+        resize: none;
+        margin: 5px;
+    }
+    .button {
+        border: solid 2px black;
+        background-color: rgb(0, 0, 0);
+        margin: 5px;
+        font-family: 'Poppins', sans-serif;
+        color: rgb(255, 255, 255);
+        font-weight: 600;
+        cursor: pointer;
+    }
 </style>
