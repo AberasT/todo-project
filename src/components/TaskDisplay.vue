@@ -1,7 +1,7 @@
 <template>
 
     <task-list :tasks="tasks"></task-list>
-    <task-form @task-added="addTask"></task-form>
+    <task-form @task-added="addTask" @task-edited="editTask"></task-form>
 
 </template>
 
@@ -27,7 +27,13 @@ export default {
                 checked: false
             }
             this.tasks.push(addedTask);
-            console.log(addedTask.text);
+        },
+        editTask(index,editedTask) {
+            let replaceTask = {
+                text: editedTask,
+                checked: false
+            }
+            this.tasks[index] = replaceTask;
         }
     }
 }

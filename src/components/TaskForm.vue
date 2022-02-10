@@ -1,8 +1,8 @@
 <template>
-    <div>
+    <div @edit-submitted="updateInput">
         <form @submit.prevent="onSubmit">
             <textarea id="taskText" v-model="taskText"></textarea>
-            <input class="button" type="submit" value="Add To-Do">  
+            <input class="button" type="submit" :value="buttonText">  
         </form>
     </div>
     
@@ -14,15 +14,27 @@ export default {
     name: 'TaskForm',
     data() {
         return {
-            taskText: ''
+            taskText: '',
+            buttonText: 'Add To-Do'
         }
     },
     methods: {
         onSubmit() {
             if (this.taskText !== '') {
-                this.$emit('task-added',this.taskText);
-                this.taskText = '';
+                if (this.buttonText == 'Add To-Do') {
+                    this.$emit('task-added',this.taskText);
+                    this.taskText = '';
+                } else {
+                    let editedTask = this.taskText;
+                    this.$emit('task-edited',index,editedTask);
+                    this.taskText = '';
+                    this.buttonText = 'Add To-Do';
+                }
             }
+        },
+        updateInput(task) {
+            taskText = task.text;
+            this.buttonText = 'Edit To-Do';
         }
     }
 }
