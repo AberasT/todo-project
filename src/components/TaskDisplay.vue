@@ -1,7 +1,7 @@
 <template>
 
     <task-list :tasks="tasks"></task-list>
-    <task-form @task-added="addTask(newTask)"></task-form>
+    <task-form @task-added="addTask"></task-form>
 
 </template>
 
@@ -21,8 +21,13 @@ export default {
         TaskList
     },
     methods: {
-        addTask(newTask) {
-            this.tasks.push(newTask);
+        addTask(taskText) {
+            let addedTask = {
+                text: taskText,
+                checked: false
+            }
+            this.tasks.push(addedTask);
+            console.log(addedTask.text);
         }
     }
 }
