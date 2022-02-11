@@ -21,6 +21,7 @@ export default {
     },
     methods: {
         onEdit(index,task) {
+            console.log('onEdit');
             this.$emit("edit-submitted",index,task);
         }
     }
