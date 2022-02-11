@@ -1,28 +1,33 @@
 <template>
-    <task-list @edit-submitted="updateInput" @remove-submitted="removeTask" :tasks="tasks"></task-list>
+    <task-list @edit-submitted="updateInput" @remove-submitted="removeTask" @done-submitted="setDone" :tasks="tasks"></task-list>
     <div>
         <form @submit.prevent="onSubmit">
             <textarea id="taskText" v-model="inputText"></textarea>
             <input class="button" type="submit" :value="buttonText">
         </form>
     </div>
+    <h2>Done</h2>
+    <done-task-list @remove-done-submitted="removeDoneTask" :doneTasks="doneTasks"></done-task-list>
 
 </template>
 
 <script>
 import TaskList from "./TaskList.vue";
+import DoneTaskList from "./DoneTaskList.vue";
 
 export default {
     name: 'TaskDisplay',
     data() {
         return {
         tasks: [],
+        doneTasks: [],
         inputText: '',
         buttonText: 'Add To-Do',
         auxIndex: null
         }
     },
     components: {
+        DoneTaskList,
         TaskList
     },
     methods: {
@@ -58,6 +63,13 @@ export default {
             this.buttonText = 'Add To-Do'
         },
         removeTask(index) {
+            this.tasks.splice(index);
+        },
+        removeDoneTask(index) {
+            this.doneTasks.splice(index);
+        },
+        setDone(index) {
+            this.doneTasks.push(this.tasks[index]);
             this.tasks.splice(index);
         }
     }

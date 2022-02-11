@@ -12,7 +12,7 @@
                 @click="$emit('remove-submitted',index)">
                 Remove
             </button>
-            <input class="checkbox" type="checkbox" >
+            <input @click="$emit('done-submitted',index)" class="checkbox" type="checkbox" >
         </div>
     </div>
 </template>
@@ -21,7 +21,7 @@
 
 export default {
     name: 'TaskList',
-    emits: ['edit-submitted', 'remove-submitted'],
+    emits: ['edit-submitted', 'remove-submitted', 'done-submitted'],
     props: {
         tasks: {
             type: Array,

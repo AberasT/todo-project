@@ -20,8 +20,7 @@ export default {
     name: 'App',
     data() {
       return {
-        title: 'To-Do List',
-        isEditing: false
+        title: 'To-Do List'
       }
     },
     components: {
