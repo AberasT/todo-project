@@ -47,7 +47,7 @@ export default {
 
 .task-display {
   width: 100%;
-  border: black solid;
+  border: black dotted 2px;
   display: flex;
   flex-direction: column;
   align-items: center;

@@ -1,9 +1,9 @@
 <template>
-    <div class="task-container" v-for="(task,index) in doneTasks" :key="index">
+    <div class="task-container done-task-container" v-for="(task,index) in doneTasks" :key="index">
         <p class="p-task done-task" >{{ task.text }}</p>
         <div class="task-buttons">
             <button 
-                class="button" 
+                class="button color-red" 
                 @click="$emit('remove-done-submitted',index)">
                 Remove
             </button>
@@ -30,5 +30,12 @@ export default {
     .done-task {
         text-decoration: line-through;
         color: rgb(93, 93, 93);
+        margin-left: 30px;
+    }
+
+    .done-task-container {
+        justify-content: space-between;
+        background-color: rgb(241, 241, 241);
+        box-shadow: 5px 4px 2px rgb(200, 200, 200);
     }
 </style>

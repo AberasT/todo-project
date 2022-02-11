@@ -1,12 +1,13 @@
 <template>
-    <task-list @edit-submitted="updateInput" @remove-submitted="removeTask" @done-submitted="setDone" :tasks="tasks"></task-list>
     <div>
         <form @submit.prevent="onSubmit">
-            <textarea id="taskText" v-model="inputText"></textarea>
-            <input class="button" type="submit" :value="buttonText">
+            <textarea placeholder="Write here!" id="taskText" v-model="inputText"></textarea>
+            <input class="button add-button" type="submit" :value="buttonText">
         </form>
     </div>
-    <h2>Done</h2>
+    <task-list @edit-submitted="updateInput" @remove-submitted="removeTask" @done-submitted="setDone" :tasks="tasks"></task-list>
+    
+    <p v-if="this.doneTasks.length">Done</p>
     <done-task-list @remove-done-submitted="removeDoneTask" :doneTasks="doneTasks"></done-task-list>
 
 </template>
@@ -63,14 +64,18 @@ export default {
             this.buttonText = 'Add To-Do'
         },
         removeTask(index) {
-            this.tasks.splice(index);
+            if (this.buttonText == 'Add To-Do') {
+                index == 0 ? this.tasks.shift(index) : this.tasks.splice(index,1);
+            }
         },
         removeDoneTask(index) {
-            this.doneTasks.splice(index);
+            if (this.buttonText == 'Add To-Do') {
+                index == 0 ? this.doneTasks.shift(index) : this.doneTasks.splice(index,1); 
+            } 
         },
         setDone(index) {
             this.doneTasks.push(this.tasks[index]);
-            this.tasks.splice(index);
+            this.removeTask(index);
         }
     }
 }
@@ -83,19 +88,31 @@ export default {
         border: solid 2px black;
         resize: none;
         margin: 5px;
+        font-family: 'Poppins', sans-serif;
+        font-size: medium;
     }
     .button {
         border: none;
         background-color: rgb(22, 22, 22,0);
-        margin: 5px;
         font-family: 'Poppins', sans-serif;
-        color: rgb(22, 22, 22);
-        text-shadow: 1px 1px 1px grey;
         font-weight: 600;
         cursor: pointer;
+        transition: transform 60ms ease;
+    }
+
+    .color-red {
+        color: rgb(184, 3, 3);
+    }
+
+    .color-blue {
+        color: rgb(39, 174, 236);
+    }
+
+    .add-button {
+        font-size: large;
     }
 
     .button:hover {
-        transform: scale(1.1);
+        transform: scale(1.07);
     }
 </style>
