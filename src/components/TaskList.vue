@@ -2,8 +2,16 @@
     <div class="task-container" v-for="(task,index) in tasks" :key="index">
         <p class="p-task" >{{ task.text }}</p>
         <div class="task-buttons">
-            <button class="button" @click="onEdit(index,task)">Edit</button>
-            <button class="button" @click="removeTask(index)">Remove</button>
+            <button 
+                class="button" 
+                @click='$emit("edit-submitted",index,task)'>
+                Edit
+            </button>
+            <button 
+                class="button" 
+                @click="$emit('remove-submitted',index)">
+                Remove
+            </button>
             <input class="checkbox" type="checkbox" >
         </div>
     </div>
@@ -13,6 +21,7 @@
 
 export default {
     name: 'TaskList',
+    emits: ['edit-submitted', 'remove-submitted'],
     props: {
         tasks: {
             type: Array,
@@ -20,10 +29,6 @@ export default {
         }
     },
     methods: {
-        onEdit(index,task) {
-            console.log('onEdit');
-            this.$emit("edit-submitted",index,task);
-        }
     }
 }
 </script>
@@ -38,7 +43,7 @@ export default {
         width: 70%;
         margin: 10px;
         text-align:initial;
-        border: rgb(53, 174, 255) solid;
+        border: rgb(200, 6, 6) solid;
         box-shadow: 5px 4px 2px gray;
     }
 

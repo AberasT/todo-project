@@ -1,5 +1,5 @@
 <template>
-    <task-list @edit-submitted="updateInput" :tasks="tasks"></task-list>
+    <task-list @edit-submitted="updateInput" @remove-submitted="removeTask" :tasks="tasks"></task-list>
     <div>
         <form @submit.prevent="onSubmit">
             <textarea id="taskText" v-model="inputText"></textarea>
@@ -27,13 +27,11 @@ export default {
     },
     methods: {
         updateInput(index,task) {
-            console.log('updateInput');
             this.buttonText = 'Edit To-Do';
             this.inputText = task.text;
             this.auxIndex = index;
         },
         onSubmit() {
-            console.log('onSub start')
             if (this.inputText !== '') {
                 if (this.buttonText == 'Add To-Do') {
                     this.addTask(this.inputText);
@@ -41,7 +39,6 @@ export default {
                     this.editTask(this.inputText)
                 }
             }
-            console.log('onSub end')
         },
         addTask(taskText) {
             let addedTask = {
@@ -59,6 +56,9 @@ export default {
             this.tasks[this.auxIndex] = replaceTask;
             this.inputText = '';
             this.buttonText = 'Add To-Do'
+        },
+        removeTask(index) {
+            this.tasks.splice(index);
         }
     }
 }
@@ -78,8 +78,12 @@ export default {
         margin: 5px;
         font-family: 'Poppins', sans-serif;
         color: rgb(22, 22, 22);
-        text-shadow: 1px 2px 1px grey;
+        text-shadow: 1px 1px 1px grey;
         font-weight: 600;
         cursor: pointer;
+    }
+
+    .button:hover {
+        transform: scale(1.1);
     }
 </style>
