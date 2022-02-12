@@ -1,14 +1,18 @@
 <template>
-    <div>
-        <form @submit.prevent="onSubmit">
-            <textarea placeholder="Write here!" id="taskText" v-model="inputText"></textarea>
-            <input class="button add-button" type="submit" :value="buttonText">
-        </form>
+    <div class="general-container">
+        <div style="grid-area: tasks">
+            <task-list @edit-submitted="updateInput" @remove-submitted="removeTask" @done-submitted="setDone" :tasks="tasks"></task-list>
+            <p v-if="this.doneTasks.length">Done</p>
+            <done-task-list @remove-done-submitted="removeDoneTask" @not-done-submitted="setNotDone" :doneTasks="doneTasks"></done-task-list>
+        </div>
+        <div style="grid-area: form">
+            <form @submit.prevent="onSubmit">
+                <textarea placeholder="Write here!" id="taskText" v-model="inputText"></textarea>
+                <input class="button add-button" type="submit" :value="buttonText">
+            </form>
+        </div>
     </div>
-    <task-list @edit-submitted="updateInput" @remove-submitted="removeTask" @done-submitted="setDone" :tasks="tasks"></task-list>
     
-    <p v-if="this.doneTasks.length">Done</p>
-    <done-task-list @remove-done-submitted="removeDoneTask" :doneTasks="doneTasks"></done-task-list>
 
 </template>
 
@@ -49,7 +53,7 @@ export default {
         addTask(taskText) {
             let addedTask = {
                 text: taskText,
-                checked: false
+                done: false
             }
             this.tasks.push(addedTask);
             this.inputText = '';
@@ -57,7 +61,7 @@ export default {
         editTask(editedTask) {
             let replaceTask = {
                 text: editedTask,
-                checked: false
+                done: false
             }
             this.tasks[this.auxIndex] = replaceTask;
             this.inputText = '';
@@ -76,6 +80,10 @@ export default {
         setDone(index) {
             this.doneTasks.push(this.tasks[index]);
             this.removeTask(index);
+        },
+        setNotDone(index) {
+            this.tasks.push(this.doneTasks[index]);
+            this.removeDoneTask(index);
         }
     }
 }
@@ -83,11 +91,31 @@ export default {
 </script>
 
 <style>
-    textarea {
+
+    .general-container {
         width: 100%;
+        display: grid;
+        grid-template-columns: 70% 30%;
+        grid-template-areas: "tasks form";
+        align-items: baseline;
+    }
+
+    @media (max-aspect-ratio: 1/1) {
+        .general-container {
+            width: 100%;
+            display: grid;
+            grid-template-areas: "form" 
+                                 "tasks";
+            grid-template-columns: 100%;
+            justify-content: center;
+        }
+    }
+    
+    textarea {
+        width: 80%;
         border: solid 2px black;
         resize: none;
-        margin: 5px;
+        margin-top: 30px;
         font-family: 'Poppins', sans-serif;
         font-size: medium;
     }
@@ -110,9 +138,17 @@ export default {
 
     .add-button {
         font-size: large;
+        text-shadow: 2px 1px 1px rgb(168, 168, 168);
     }
 
     .button:hover {
         transform: scale(1.07);
     }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    
 </style>

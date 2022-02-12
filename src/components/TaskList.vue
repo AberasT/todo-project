@@ -47,12 +47,18 @@ export default {
         align-items: center;
         justify-content: space-between;
         background-color: rgb(255, 255, 255);
-        width: 70%;
-        margin: 10px;
-        text-align:initial;
+        width: 90%;
+        padding: 5px 10px; 
+        margin: 20px 40px;
+        text-align: initial;
         border-radius: 5px;
         box-shadow: 3px 2px 7px rgb(119, 112, 112);
-        transition: transform 60ms ease;
+    }
+
+    @media (max-aspect-ratio: 1/1) {
+        .task-container {
+            margin-left: 3%;
+        }
     }
 
     .p-task {

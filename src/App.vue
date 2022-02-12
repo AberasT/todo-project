@@ -1,15 +1,8 @@
 <template>
   <h1>{{title}}</h1>
-  <div class="general-container">
-    <div class="task-display">
-      <task-display></task-display>
-    </div>
-    <div class="folder-container">
-
-    </div>
+  <div class="task-display">
+    <task-display></task-display>
   </div>
-  
-
 
 </template>
 
@@ -20,7 +13,7 @@ export default {
     name: 'App',
     data() {
       return {
-        title: 'To-Do List'
+        title: 'My To-Do List'
       }
     },
     components: {
@@ -31,29 +24,21 @@ export default {
 
 <style>
 #app {
-  font-family: Helvetica;
+  font-family: 'Poppins';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
 }
 
-.general-container {
-  width: 100%;
-  display: grid;
-  grid-template-columns: 50% 50%;
-  justify-items: center;
+h1 {
+  text-decoration: underline;
+  font-weight: 500;
+  text-shadow: 2px 1px 1px rgb(177, 177, 177);
 }
 
 .task-display {
   width: 100%;
-  border: black dotted 2px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 }
-
-
-
 
 </style>
